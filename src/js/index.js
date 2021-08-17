@@ -91,6 +91,5 @@ function generateSearchQueryResult(searchQuery, pageNumber) {
 }
 
 function onOpenLightbox(src) {
-  // console.log(src);
   basicLightbox.create(`<img src=${src}>`).show();
 }
