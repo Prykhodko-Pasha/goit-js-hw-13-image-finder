@@ -8,9 +8,6 @@ const refs = {
   loadMoreBtn: document.querySelector('#loadMore'),
 };
 
-let pageNumber = 1;
-let searchQuery = '';
-
 // noty
 import Noty from 'noty';
 import 'noty/src/noty.scss';
@@ -18,18 +15,17 @@ import 'noty/src/themes/nest.scss';
 
 // basicLightbox
 import * as basicLightbox from 'basiclightbox';
-
-// pnotify
-// import '@pnotify/core/dist/PNotify.css';
-// import '@pnotify/core/dist/BrightTheme.css';
-// import { error } from '@pnotify/core';
-// import { defaults } from '@pnotify/core';
-// defaults.maxTextHeight = null; //Deleting Maximum height of the text container
 //===========
 
+let pageNumber = 1;
+let searchQuery = '';
+
 refs.input.addEventListener('input', debounce(searchImages, 500));
+
 refs.loadMoreBtn.addEventListener('click', onLoadMoreBtn);
+
 refs.output.addEventListener('click', e => {
+  console.log(e.target.className);
   if (e.target.className === 'card-img') {
     onOpenLightbox(e.target.dataset.source);
   }
@@ -37,19 +33,19 @@ refs.output.addEventListener('click', e => {
 
 function searchImages(e) {
   refs.loadMoreBtn.classList.add('is-hidden');
+  refs.output.innerHTML = '';
   searchQuery = e.target.value.trim();
   // console.log(searchQuery);
   if (searchQuery) {
     pageNumber = 1;
     generateSearchQueryResult(searchQuery, pageNumber);
   }
-  resetOutput();
 }
 
 function onLoadMoreBtn() {
   pageNumber += 1;
-  console.log(pageNumber);
-  console.log(searchQuery);
+  // console.log(pageNumber);
+  // console.log(searchQuery);
   generateSearchQueryResult(searchQuery, pageNumber);
 }
 
@@ -95,9 +91,6 @@ function generateSearchQueryResult(searchQuery, pageNumber) {
 }
 
 function onOpenLightbox(src) {
+  // console.log(src);
   basicLightbox.create(`<img src=${src}>`).show();
-}
-
-function resetOutput() {
-  refs.output.innerHTML = '';
 }
