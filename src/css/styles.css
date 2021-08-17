@@ -104,6 +104,7 @@ input {
 #loadMore {
   font-size: 22px;
   font-weight: 500;
+  letter-spacing: 1px;
   width: 200px;
   color: #fff;
   display: block;
